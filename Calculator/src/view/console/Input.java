@@ -12,7 +12,7 @@ public class Input {
 		double x;
 		double y;
 
-		System.out.println("Welcome to Noocy.Calculate!");
+		System.out.println("Welcome to Snopel.Calculate!");
 		System.out.print("Please enter your first number: ");
 		x = input.nextDouble();
 		System.out.print("Please enter your second number: ");
@@ -21,7 +21,7 @@ public class Input {
 		System.out.print("Please choose an operator (1 = +, 2 = -, 3 = *, 4 = %): ");
 		op = input.nextInt();
 
-		for (;;) {
+		for ( ; ; ) {
 			if (op == 1) {
 				System.out.println("The answer is " + calc.add(x, y));
 				break;
