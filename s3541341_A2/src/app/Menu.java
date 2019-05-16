@@ -122,7 +122,7 @@ public class Menu
 		int year = Integer.parseInt(dateEntered.substring(6));
 		DateTime dateRequired = new DateTime(day, month, year);
 		
-		if(!DateUtilities.dateIsNotInPast(dateRequired) || !DateUtilities.dateIsNotMoreThan7Days(dateRequired))
+		if(!DateUtilities.dateIsNotInPast(dateRequired) || !DateUtilities.dateIsNotMoreThanXDays(dateRequired, 7))
 		{
 			System.out.println("Date is invalid, must be within the coming week.");
 			return false;

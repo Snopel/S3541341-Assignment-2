@@ -23,6 +23,7 @@ public class Booking {
 	private final int NAME_MINIMUM_LENGTH = 3;
 
 	public Booking(String firstName, String lastName, DateTime required, int numPassengers, Car car) 
+
 	{
 		generateId(car.getRegistrationNumber(), firstName, lastName, required);
 		validateAndSetDate(required);
@@ -174,7 +175,7 @@ public class Booking {
 	 */
 	private void validateAndSetDate(DateTime date)
 	{
-		if(DateUtilities.dateIsNotInPast(date) && DateUtilities.dateIsNotMoreThan7Days(date))
+		if(DateUtilities.dateIsNotInPast(date) && DateUtilities.dateIsNotMoreThanXDays(date, 7))
 		{
 			dateBooked = date;
 		}

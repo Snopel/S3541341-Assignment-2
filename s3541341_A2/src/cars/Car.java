@@ -356,7 +356,8 @@ public class Car
 	 */
 	private boolean dateIsValid(DateTime date)
 	{
-		return DateUtilities.dateIsNotInPast(date) && DateUtilities.dateIsNotMoreThan7Days(date);
+		//NOTE: Updated to accomodate for different date inputs
+		return DateUtilities.dateIsNotInPast(date) && DateUtilities.dateIsNotMoreThanXDays(date, 7);
 	}
 
 	/*
