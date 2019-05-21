@@ -21,9 +21,15 @@ public class SilverServiceCar extends Car {
 	}
 
 	// Overriding the Book method so that bookings can only be made 3 days in advance.
-
+	public boolean book(String firstName, String lastName, DateTime required, int numPassengers)
+	{
+		return true;
+	}
+	
 	// Overriding the getDetails method to display current bookings and refreshments.
+	@Override
 	public String getDetails() {
+		// Add in the booking fee change and the refreshments
 		String overString = "";
 		overString = super.getDetails();
 		overString += ("\nBooking Fee: " + bookingFee + "\nRefreshments Available:\n"); 
@@ -31,6 +37,10 @@ public class SilverServiceCar extends Car {
 			overString += ("\n" + refreshments[i]);
 		}
 		overString += "\n\n";
+		
+		// Add in the current bookings and past bookings
+		
 		return overString;
 	}
+	
 }
