@@ -1,6 +1,7 @@
 package app;
 
 import cars.Car;
+import cars.SilverServiceCar;
 import utilities.DateTime;
 import utilities.MiRidesUtilities;
 
@@ -21,7 +22,8 @@ public class MiRideApplication
 		//seedData();
 	}
 	
-	public String createCar(String id, String make, String model, String driverName, int numPassengers) 
+	//UPDATE: Creating two creation methods; one for Standard, one for Silver Service
+	public String createStandardCar(String id, String make, String model, String driverName, int numPassengers) 
 	{
 		String validId = isValidId(id);
 		if(isValidId(id).contains("Error:"))
@@ -31,7 +33,23 @@ public class MiRideApplication
 		if(!checkIfCarExists(id)) {
 			cars[itemCount] = new Car(id, make, model, driverName, numPassengers);
 			itemCount++;
-			return "New Car added successfully for registion number: " + cars[itemCount-1].getRegistrationNumber();
+			return "New Standard Car added successfully for registion number: " + cars[itemCount-1].getRegistrationNumber();
+		}
+		return "Error: Already exists in the system.";
+	}
+	
+	public String createSilverCar(String id, String make, String model, String driverName, int numPassengers, 
+			double bookingFee, String[] refreshments) 
+	{
+		String validId = isValidId(id);
+		if(isValidId(id).contains("Error:"))
+		{
+			return validId;
+		}
+		if(!checkIfCarExists(id)) {
+			cars[itemCount] = new SilverServiceCar(id, make, model, driverName, numPassengers, bookingFee, refreshments);
+			itemCount++;
+			return "New Silver Service Car added successfully for registion number: " + cars[itemCount-1].getRegistrationNumber();
 		}
 		return "Error: Already exists in the system.";
 	}
