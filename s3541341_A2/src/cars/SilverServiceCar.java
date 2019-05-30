@@ -81,4 +81,44 @@ public class SilverServiceCar extends Car {
 		return overString;
 	}
 
+	// Overriding the getString Method
+	@Override
+	public String toString() {
+		String overString = "";
+		overString = super.toString();
+		overString += (":" + bookingFee + ":");
+		for (int i = 0; i < refreshments.length; i++) {
+			overString += ("Item " + i + " " + refreshments[i]);
+		}
+
+		// Add in the current bookings and past bookings
+		if (getCurrentBookings() != null) {
+			overString += ":";
+			for (int i = 0; i < getCurrentBookings().length; i++) {
+				if (getCurrentBookings()[i] == null) {
+					continue;
+				} else {
+					overString += getCurrentBookings()[i].toString();
+				}
+			}
+		}
+
+		if (getPastBookings() != null) {
+			overString += ":";
+			for (int i = 0; i < getPastBookings().length; i++) {
+				if (getPastBookings()[i] != null) {
+					overString += ":";
+					for (int j = 0; j < getPastBookings().length; j++) {
+						if (getCurrentBookings()[j] == null) {
+							continue;
+						}
+						overString += getPastBookings()[j].toString();
+					}
+				}
+			}
+		}
+
+		return overString;
+	}
+
 }
