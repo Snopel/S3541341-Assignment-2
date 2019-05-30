@@ -216,9 +216,10 @@ public class MiRideApplication {
 		DateTime inTwoDays = new DateTime(2);
 		rover.book("Rodney", "Cocker", inTwoDays, 3);
 		rover.completeBooking("Rodney", "Cocker", inTwoDays, 75);
+		
 		String[] refreshments = { "Chocolate", "Mints", "Orange Juice" };
-		Car mazda = new SilverServiceCar("MAZ465", "Honda", "Rover", "Jonathon Ryss Meyers", 7, 5.5, refreshments);
-		cars[itemCount] = rover;
+		SilverServiceCar bugatti = new SilverServiceCar("BUG450", "Bugatti", "Veyron", "Ricki Boyd", 4, 5.5, refreshments);
+		cars[itemCount] = bugatti;
 		itemCount++;
 		return true;
 	}
@@ -228,57 +229,40 @@ public class MiRideApplication {
 		Scanner console = new Scanner(System.in);
 		System.out.print("Enter Type (SD/SS): ");
 		String type = console.nextLine();
+		String[] filteredCars = new String[15];
 
 		if (type.equalsIgnoreCase("SD")) {
 			if (itemCount == 0) {
 				return "No cars have been added to the system.";
 			}
-			sb.append("Summary of all cars: ");
-			sb.append("\n");
-
-			// SORTING ALGORITHM
-			/*
-			 * SORTING ALGORITHM - ASCENDING START GET Registration INSERT into array
-			 * COMPARE the phrases IF current value is GREATER THAN next value ` SWAP
-			 * current and next value ELSE IF current value is less than or equal to next
-			 * value do nothing END IF END
-			 * 
-			 * SWAP ALGORITHM START CREATE temporary variable IF SWAP ASSIGN current value
-			 * to temporary ASSIGN next value to the current spot ASSIGN temporary value
-			 * into next spot ELSE do nothing END IF END
-			 */
-			String[] sortArr = new String[cars.length];
-			String temp = "";
-
-			// Fill the sorting array
-			for (int h = 0; h < cars.length; h++) {
-				if (cars[h] != null) {
-					String carSplit[] = cars[h].toString().split(":");
-					sortArr[h] = carSplit[0];
-				}
-			}
-
-			for (int i = 0; i < sortArr.length - 1; i++) {
-				if (sortArr[i] == null) {
-					continue;
-				} else {
-					for (int j = i + 1; j < sortArr.length; j++) {
-						if (sortArr[i].compareToIgnoreCase(sortArr[j]) > 0) {
-							temp = sortArr[i];
-							sortArr[i] = sortArr[j];
-							sortArr[j] = temp;
-
-						}
+			
+			for (int g = 0; g < cars.length; g++) {
+				if (cars[g] instanceof Car && !(cars[g] instanceof SilverServiceCar)) {
+					if (cars[g] != null) {
+						filteredCars[g] = cars[g].getDetails();
 					}
 				}
 			}
-
-			for (int k = 0; k < sortArr.length; k++) {
-				System.out.println(sortArr[k]);
+			
+			System.out.println("Enter Sort Order (A/D): ");
+			String order = console.nextLine();
+			
+			if (order.equalsIgnoreCase("A")) {
+				ascSortString(filteredCars);
+			} else if (order.equalsIgnoreCase("D")) {
+				descSortString(filteredCars);
 			}
+			
+			
+			sb.append("Summary of all cars: ");
+			sb.append("\n");
+
+			// build the string from the filtered array
 
 			for (int i = 0; i < itemCount; i++) {
-				sb.append(cars[i].getDetails());
+				if (filteredCars[i] != null) {
+					sb.append(filteredCars[i]);
+				}
 			}
 		}
 		return sb.toString();
@@ -321,5 +305,97 @@ public class MiRideApplication {
 			}
 		}
 		return car;
+	}
+	
+	//SORTING ALGORITHMS
+	private void ascSortString(String[] sortArr) {
+		// SORTING ALGORITHM
+		/*
+		 * SORTING ALGORITHM - ASCENDING 
+		 * START
+		 *   GET Registration 
+		 *   INSERT into array
+		 *	 COMPARE the phrases 
+		 * 	 IF current value is GREATER THAN next value ` 
+		 * 		SWAP current and next value
+		 *  ELSE IF current value is less than or equal to next value 
+		 *  	do nothing 
+		 *  END IF 
+		 *END
+		 * 
+		* SWAP ALGORITHM 
+		* 	START 
+		* 		CREATE temporary variable 
+		* 		IF SWAP 
+		* 			ASSIGN current value to temporary 
+		* 			ASSIGN next value to the current spot 
+		* 			ASSIGN temporary value into next spot 
+		* 		ELSE do nothing 
+		* 	END IF 
+		* END
+		*/
+
+		// sort the filtered array
+	    // run a sorting algorithm over the filtered car array
+
+		String temp = "";
+		System.out.println();
+
+		for (int i = 0; i < sortArr.length - 1; i++) {
+			for (int j = i + 1; j < sortArr.length; j++) {
+				if (sortArr[i] != null && sortArr[j] != null) {
+					if (sortArr[i].compareToIgnoreCase(sortArr[j]) > 0) {
+						temp = sortArr[i];
+						sortArr[i] = sortArr[j];
+						sortArr[j] = temp;
+					}
+				}
+			}
+		}
+	}
+	private void descSortString(String[] sortArr) {
+		// SORTING ALGORITHM
+		/*
+		 * SORTING ALGORITHM - DESCENDING 
+		 * START
+		 *   GET Registration 
+		 *   INSERT into array
+		 *	 COMPARE the phrases 
+		 * 	 IF current value is LESS THAN next value ` 
+		 * 		SWAP current and next value
+		 *  ELSE IF current value is greater than or equal to next value 
+		 *  	do nothing 
+		 *  END IF 
+		 *END
+		 * 
+		* SWAP ALGORITHM 
+		* 	START 
+		* 		CREATE temporary variable 
+		* 		IF SWAP 
+		* 			ASSIGN current value to temporary 
+		* 			ASSIGN next value to the current spot 
+		* 			ASSIGN temporary value into next spot 
+		* 		ELSE do nothing 
+		* 	END IF 
+		* END
+		*/
+
+		// sort the filtered array
+	    // run a sorting algorithm over the filtered car array
+
+		String temp = "";
+		System.out.println();
+
+		for (int i = 0; i < sortArr.length - 1; i++) {
+			for (int j = i + 1; j < sortArr.length; j++) {
+				if (sortArr[i] != null && sortArr[j] != null) {
+					if (sortArr[i].compareToIgnoreCase(sortArr[j]) < 0) {
+						temp = sortArr[i];
+						sortArr[i] = sortArr[j];
+						sortArr[j] = temp;
+					}
+				}
+			}
+		}
 	}
 }
