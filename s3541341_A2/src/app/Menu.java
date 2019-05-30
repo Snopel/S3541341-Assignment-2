@@ -78,6 +78,9 @@ public class Menu
 	{
 		String id = "", make, model, driverName;
 		int numPassengers = 0;
+		String service = "";
+		double bookingFee;
+		String refreshmentsString;
 
 		System.out.print("Enter registration number: ");
 		id = promptUserForRegNo();
@@ -95,16 +98,62 @@ public class Menu
 
 			System.out.print("Enter number of passengers: ");
 			numPassengers = Integer.parseInt(console.nextLine());
+			
+			//UPDATE: Adding the SD / SS choice function
+			System.out.print("Enter Service Type (SD/SS): ");
+			service = console.nextLine().toUpperCase();
+			
+			if(service.equals("SD")) {
+				boolean result = application.checkIfCarExists(id);
 
-			boolean result = application.checkIfCarExists(id);
+				if (!result)
+				{
+					String carRegistrationNumber = application.createStandardCar(id, make, model, driverName, numPassengers);
+					System.out.println(carRegistrationNumber);
+				} else
+				{
+					System.out.println("Error - Already exists in the system");
+				}
+			} else if (service.equals("SS")) {
+				System.out.print("Enter Standard Fee: ");
+				bookingFee = Double.parseDouble(console.nextLine());
+				
+				/*ALGORITHM
+				 * START
+				 * 	GET user input for refreshments separated by comma ,
+				 * 	ASSIGN input to a refreshment string
+				 * 	SPLIT refreshment string by comma
+				 * 	ASSIGN string segments into refreshments array
+				 * 	CHECK array length (If length = 1, lines were not separated)
+				 *  IF length = 1
+				 * 		ERROR
+				 * 		RETURN to menu
+				 * ELSE
+				 * 		PROCEED with creation
+				 * 	END
+				 */
+				
+				System.out.print("Enter List of Refreshments\n"
+						+ "(Separate Refreshments by comma ','): ");
+				refreshmentsString = console.nextLine();
+				String[] refreshments = refreshmentsString.split(",");
+				if(refreshments.length == 1) {
+					System.out.println("Error: Invalid Input");
+					return;
+				}
+				//Continue with booking the car
+				boolean result = application.checkIfCarExists(id);
 
-			if (!result)
-			{
-				String carRegistrationNumber = application.createCar(id, make, model, driverName, numPassengers);
-				System.out.println(carRegistrationNumber);
-			} else
-			{
-				System.out.println("Error - Already exists in the system");
+				if (!result)
+				{
+					String carRegistrationNumber = application.createSilverCar(id, make, model, driverName, numPassengers, bookingFee, refreshments);
+					System.out.println(carRegistrationNumber);
+				} else
+				{
+					System.out.println("Error - Already exists in the system");
+				}
+			} else {
+				System.out.println("Error: Invalid Input");
 			}
 		}
 	}

@@ -427,4 +427,12 @@ public class Car
 			this.passengerCapacity = -1;
 		}
 	}
+	
+	protected Booking[] getCurrentBookings() {
+		return currentBookings;
+	}
+	
+	protected Booking[] getPastBookings() {
+		return pastBookings;
+	}
 }

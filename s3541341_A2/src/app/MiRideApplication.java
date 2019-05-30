@@ -248,6 +248,10 @@ public class MiRideApplication
 		DateTime inTwoDays = new DateTime(2);
 		rover.book("Rodney", "Cocker", inTwoDays, 3);
 		rover.completeBooking("Rodney", "Cocker", inTwoDays,75);
+		String[] refreshments = {"Chocolate", "Mints", "Orange Juice"};
+		Car mazda = new SilverServiceCar("MAZ465", "Honda", "Rover", "Jonathon Ryss Meyers", 7, 5.5, refreshments);
+		cars[itemCount] = rover;
+		itemCount++;
 		return true;
 	}
 
