@@ -428,11 +428,11 @@ public class Car
 		}
 	}
 	
-	protected Booking[] getCurrentBookings() {
+	public Booking[] getCurrentBookings() {
 		return currentBookings;
 	}
 	
-	protected Booking[] getPastBookings() {
+	public Booking[] getPastBookings() {
 		return pastBookings;
 	}
 }

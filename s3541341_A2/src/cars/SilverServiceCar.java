@@ -51,7 +51,7 @@ public class SilverServiceCar extends Car {
 		overString += "\n\n";
 
 		// Add in the current bookings and past bookings
-		if (getCurrentBookings() != null) {
+		if (getCurrentBookings()[0] != null) {
 			overString += "CURRENT BOOKINGS \n";
 			for (int i = 0; i < getCurrentBookings().length; i++) {
 				if (getCurrentBookings()[i] == null) {
@@ -60,23 +60,18 @@ public class SilverServiceCar extends Car {
 					overString += getCurrentBookings()[i].getDetails();
 				}
 			}
-		}
+		} 
 
-		for (
-
-				int i = 0; i <
-
-				getPastBookings().length; i++) {
-			if (getPastBookings()[i] != null) {
-				overString += "PAST BOOKINGS ______________________________________\n";
-				for (int j = 0; j < getPastBookings().length; j++) {
-					if (getCurrentBookings()[j] == null) {
-						continue;
-					}
-					overString += getPastBookings()[j].getDetails();
+		if (getPastBookings()[0] != null) {
+			overString += "PAST BOOKINGS \n";
+			for (int i = 0; i < getPastBookings().length; i++) {
+				if (getPastBookings()[i] == null) {
+					continue;
+				} else {
+					overString += getPastBookings()[i].getDetails();
 				}
 			}
-		}
+		} 
 
 		return overString;
 	}

@@ -5,6 +5,7 @@ import java.util.*;
 import cars.Car;
 import cars.SilverServiceCar;
 import utilities.DateTime;
+import utilities.DateUtilities;
 import utilities.MiRidesUtilities;
 
 /*
@@ -170,6 +171,8 @@ public class MiRideApplication {
 	public boolean seedData() {
 		for (int i = 0; i < cars.length; i++) {
 			if (cars[i] != null) {
+				System.out.println("Error: Seed Data cannot run");
+				System.out.println("Data has been processed and cannot be overwritten.");
 				return false;
 			}
 		}
@@ -266,6 +269,8 @@ public class MiRideApplication {
 		lykan.book("Freya", "Cook", new DateTime(5), 7);
 		lykan.book("Cathryn", "Treven", new DateTime(6), 7);
 		lykan.book("Taylah", "Clayton", new DateTime(7), 7);
+		
+		System.out.println("Seed Data successful!");
 		return true;
 	}
 
@@ -387,6 +392,102 @@ public class MiRideApplication {
 		return car;
 	}
 	
+	public String searchAvailable() {
+		StringBuilder sb = new StringBuilder();
+		Car[] filteredCars = new Car[15];
+		Scanner console = new Scanner(System.in);
+		System.out.print("Enter Type (SD/SS): ");
+		String type = console.nextLine();
+		
+		if (type.equalsIgnoreCase("SD")) {
+			if (itemCount == 0) {
+				return "No cars have been added to the system.";
+			}
+			
+			for (int g = 0; g < cars.length; g++) {
+				if (cars[g] instanceof Car && !(cars[g] instanceof SilverServiceCar)) {
+					if (cars[g] != null) {
+						filteredCars[g] = cars[g];
+					}
+				}
+			}
+
+			//Prompt user for date entry
+			System.out.println("Date: ");
+			String dateEntered = console.nextLine();
+			int day = Integer.parseInt(dateEntered.substring(0, 2));
+			int month = Integer.parseInt(dateEntered.substring(3, 5));
+			int year = Integer.parseInt(dateEntered.substring(6));
+			DateTime dateRequired = new DateTime(day, month, year);
+			
+			if(!DateUtilities.dateIsNotInPast(dateRequired) || !DateUtilities.dateIsNotMoreThanXDays(dateRequired, 7))
+			{
+				return "Date is invalid, must be within the coming week.";
+			}
+			
+			for (int a = 0; a < filteredCars.length; a++) {
+				if (filteredCars[a] != null) {
+					if (filteredCars[a].getCurrentBookings() != null) {
+						for (int b = 0; b < filteredCars[a].getCurrentBookings().length; b++) {
+							if (filteredCars[a].getCurrentBookings()[b] != null) {
+								if (filteredCars[a].getCurrentBookings()[b].getDateBooked().equals(dateRequired.getEightDigitDate())) {
+									sb.append(filteredCars[a].getDetails());
+								}
+							}
+						}
+					}
+				} else if (a == filteredCars.length) {
+					System.out.println("Error: No cars found in the system.");
+					break;
+				}
+			}
+		}
+		if (type.equalsIgnoreCase("SS")) {
+			if (itemCount == 0) {
+				return "No cars have been added to the system.";
+			}
+			
+			for (int g = 0; g < cars.length; g++) {
+				if (cars[g] instanceof SilverServiceCar) {
+					if (cars[g] != null) {
+						filteredCars[g] = cars[g];
+					}
+				}
+			}
+
+			//Prompt user for date entry
+			System.out.println("Date: ");
+			String dateEntered = console.nextLine();
+			int day = Integer.parseInt(dateEntered.substring(0, 2));
+			int month = Integer.parseInt(dateEntered.substring(3, 5));
+			int year = Integer.parseInt(dateEntered.substring(6));
+			DateTime dateRequired = new DateTime(day, month, year);
+			
+			if(!DateUtilities.dateIsNotInPast(dateRequired) || !DateUtilities.dateIsNotMoreThanXDays(dateRequired, 7))
+			{
+				return "Date is invalid, must be within the coming week.";
+			}
+			
+			for (int a = 0; a < filteredCars.length; a++) {
+				if (filteredCars[a] != null) {
+					if (filteredCars[a].getCurrentBookings() != null) {
+						for (int b = 0; b < filteredCars[a].getCurrentBookings().length; b++) {
+							if (filteredCars[a].getCurrentBookings()[b] != null) {
+								if (filteredCars[a].getCurrentBookings()[b].getDateBooked()
+										.equals(dateRequired.getEightDigitDate())) {
+									sb.append(filteredCars[a].getDetails());
+								} else if (a == filteredCars.length) {
+									sb.append("Error: No cars found in the system.");
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return sb.toString();
+	}
 	//SORTING ALGORITHMS
 	private void ascSortString(String[] sortArr) {
 		// SORTING ALGORITHM

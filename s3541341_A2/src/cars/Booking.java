@@ -104,6 +104,9 @@ public class Booking {
 	}
 	
 	// Required getters
+	public String getDateBooked() {
+		return dateBooked.getEightDigitDate();
+	}
 	public String getFirstName()
 	{
 		return firstName;

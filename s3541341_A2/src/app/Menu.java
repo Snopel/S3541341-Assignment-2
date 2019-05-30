@@ -56,6 +56,9 @@ public class Menu
 					System.out.print("Enter Registration Number: ");
 					System.out.println(application.displaySpecificCar(console.nextLine()));
 					break;
+				case "SA":
+					System.out.println(application.searchAvailable());
+					break;
 				case "SD":
 					application.seedData();
 					break;
@@ -117,6 +120,7 @@ public class Menu
 			} else if (service.equals("SS")) {
 				System.out.print("Enter Standard Fee: ");
 				bookingFee = Double.parseDouble(console.nextLine());
+				
 				
 				/*ALGORITHM
 				 * START
@@ -297,7 +301,7 @@ public class Menu
 			return regNo;
 		}
 	}
-
+	
 	/*
 	 * Prints the menu.
 	 */
