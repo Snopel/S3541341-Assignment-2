@@ -217,20 +217,25 @@ public class MiRideApplication {
 		rover.book("Rodney", "Cocker", inTwoDays, 3);
 		rover.completeBooking("Rodney", "Cocker", inTwoDays, 75);
 		
-		String[] refreshments = { "Chocolate", "Mints", "Orange Juice" };
+		String[] refreshments = { "Souffle", "Pudding", "Trifle" };
 		SilverServiceCar bugatti = new SilverServiceCar("BUG450", "Bugatti", "Veyron", "Ricki Boyd", 4, 5.5, refreshments);
 		cars[itemCount] = bugatti;
 		itemCount++;
+		
+		SilverServiceCar maybach = new SilverServiceCar("MAY999", "Maybach", "Excelero", "Jay Z", 6, 1000.0, refreshments);
+		cars[itemCount] = maybach;
+		itemCount++;
+		
 		return true;
 	}
 
 	public String displayAllBookings() {
 		StringBuilder sb = new StringBuilder();
+		String[] filteredCars = new String[15];
 		Scanner console = new Scanner(System.in);
 		System.out.print("Enter Type (SD/SS): ");
 		String type = console.nextLine();
-		String[] filteredCars = new String[15];
-
+		
 		if (type.equalsIgnoreCase("SD")) {
 			if (itemCount == 0) {
 				return "No cars have been added to the system.";
@@ -238,6 +243,41 @@ public class MiRideApplication {
 			
 			for (int g = 0; g < cars.length; g++) {
 				if (cars[g] instanceof Car && !(cars[g] instanceof SilverServiceCar)) {
+					if (cars[g] != null) {
+						filteredCars[g] = cars[g].getDetails();
+					}
+				}
+			}
+			
+			System.out.println("Enter Sort Order (A/D): ");
+			String order = console.nextLine();
+			
+			if (order.equalsIgnoreCase("A")) {
+				ascSortString(filteredCars);
+			} else if (order.equalsIgnoreCase("D")) {
+				descSortString(filteredCars);
+			}
+			
+			
+			sb.append("Summary of all cars: ");
+			sb.append("\n");
+
+			// build the string from the filtered array
+
+			for (int i = 0; i < itemCount; i++) {
+				if (filteredCars[i] != null) {
+					sb.append(filteredCars[i]);
+				}
+			}
+		}
+		
+		if (type.equalsIgnoreCase("SS")) {
+			if (itemCount == 0) {
+				return "No cars have been added to the system.";
+			}
+			
+			for (int g = 0; g < cars.length; g++) {
+				if (cars[g] instanceof SilverServiceCar) {
 					if (cars[g] != null) {
 						filteredCars[g] = cars[g].getDetails();
 					}
