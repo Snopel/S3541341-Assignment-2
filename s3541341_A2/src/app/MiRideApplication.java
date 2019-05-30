@@ -190,10 +190,10 @@ public class MiRideApplication {
 		itemCount++;
 		bmw.book("Craig", "Cocker", new DateTime(1), 3);
 
-		Car audi = new Car("AUD765", "Mazda", "RX7", "Matt Bomer", 6);
-		cars[itemCount] = audi;
+		Car mazda = new Car("AUD765", "Mazda", "RX7", "Matt Bomer", 6);
+		cars[itemCount] = mazda;
 		itemCount++;
-		audi.book("Rodney", "Cocker", new DateTime(1), 4);
+		mazda.book("Rodney", "Cocker", new DateTime(1), 4);
 
 		// 1 car booked five times (not available)
 		Car toyota = new Car("TOY765", "Toyota", "Corola", "Tina Turner", 7);
@@ -217,15 +217,55 @@ public class MiRideApplication {
 		rover.book("Rodney", "Cocker", inTwoDays, 3);
 		rover.completeBooking("Rodney", "Cocker", inTwoDays, 75);
 		
-		String[] refreshments = { "Souffle", "Pudding", "Trifle" };
-		SilverServiceCar bugatti = new SilverServiceCar("BUG450", "Bugatti", "Veyron", "Ricki Boyd", 4, 5.5, refreshments);
+		//SILVER SERVICE SEEDS ______________________________________________
+		// 2 cars not booked
+		String [] refreshmentsJ = {"Bubble Tea","Irish Latte","Sconnes"};
+		SilverServiceCar ferrari = new SilverServiceCar("NEG289", "Ferrari", "F8 Tributo", "Giuseppe Balliro", 5, 7.50, refreshmentsJ);
+		cars[itemCount] = ferrari;
+		itemCount++;
+
+		String[] refreshmentsK = {"Monster", "Red Bull", "V"};
+		SilverServiceCar kLexus = new SilverServiceCar("KAM666", "Lexus", "LC 500", "Keith Muss", 5, 5.00, refreshmentsK);
+		cars[itemCount] = kLexus;
+		itemCount++;
+
+		// 2 cars booked
+		String[] refreshmentsR = {"Margharita", "Pinot Noir", "Scotch"};
+		SilverServiceCar bugatti = new SilverServiceCar("BLZ420", "Bugatti", "Type 57SC", "Ricki Boyd", 5, 50.25, refreshmentsR);
 		cars[itemCount] = bugatti;
 		itemCount++;
+		bugatti.book("Shania", "Kufner", new DateTime(1), 1);
 		
-		SilverServiceCar maybach = new SilverServiceCar("MAY999", "Maybach", "Excelero", "Jay Z", 6, 1000.0, refreshments);
-		cars[itemCount] = maybach;
+		String[] refreshmentsD = {"Gatorade", "V", "Voss Water"};
+		SilverServiceCar audi = new SilverServiceCar("STI626", "Audi", "R8", "Dannii Fourie", 2, 10.50, refreshmentsD);
+		cars[itemCount] = audi;
 		itemCount++;
+		audi.book("Robyn", "Fourie", new DateTime(1), 1);
+
+		// 2 cars booked full (not available)
+		String[] refreshmentsN = {"Souffle","Pudding","Trifle"};
+		SilverServiceCar porsche = new SilverServiceCar("SNO450", "Porsche", "911 GT2-RS", "Nicholas Balliro", 5, 25.00, refreshmentsN);
+		cars[itemCount] = porsche;
+		itemCount++;
+		porsche.book("Jessica", "Wynn", new DateTime(1), 3);
+		porsche.book("Immogen", "Fairbank", new DateTime(2), 7);
+		porsche.book("Dannii", "Fourie", new DateTime(3), 3);
+		porsche.book("Sheridan", "Brice", new DateTime(4), 7);
+		porsche.book("Brittany", "Elliot", new DateTime(5), 7);
+		porsche.book("Natalie", "Carman", new DateTime(6), 7);
+		porsche.book("Claire", "McLeod", new DateTime(7), 7);
 		
+		String[] refreshmentsC = {"Carbonara","Ravioli","Spaghetti"};
+		SilverServiceCar lykan = new SilverServiceCar("CAR006", "Lykan", "Hypersport", "Jarrod Carmichael", 5, 17.50, refreshmentsC);
+		cars[itemCount] = lykan;
+		itemCount++;
+		lykan.book("Shantel", "Macauley", new DateTime(1), 3);
+		lykan.book("Bianca", "Bisaggeo", new DateTime(2), 7);
+		lykan.book("Simone", "McKay", new DateTime(3), 3);
+		lykan.book("Alannah", "McLennan", new DateTime(4), 7);
+		lykan.book("Freya", "Cook", new DateTime(5), 7);
+		lykan.book("Cathryn", "Treven", new DateTime(6), 7);
+		lykan.book("Taylah", "Clayton", new DateTime(7), 7);
 		return true;
 	}
 
