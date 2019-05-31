@@ -3,6 +3,13 @@ package cars;
 import utilities.DateTime;
 import utilities.DateUtilities;
 
+/*
+ * Class:		SilverServiceCar
+ * Description:	This is the child class of the Car class.
+ * 				Extends upon Car to create a new luxury system
+ * 				with refreshments.
+ * Author:		Nicholas Balliro - s3541341
+ */
 public class SilverServiceCar extends Car {
 	// Defining new variables
 	private double bookingFee;
@@ -26,6 +33,7 @@ public class SilverServiceCar extends Car {
 
 	// Overriding the Book method so that bookings can only be made 3 days in
 	// advance.
+	@Override
 	public boolean book(String firstName, String lastName, DateTime required, int numPassengers) {
 		// Check the restrictive condition i.e not more than 3 days
 		// if it falls outside 3 days, then return false;
@@ -33,7 +41,6 @@ public class SilverServiceCar extends Car {
 		if (DateTime.diffDays(now, required) > 3) {
 			return false;
 		}
-
 		return super.book(firstName, lastName, required, numPassengers);
 	}
 
@@ -75,7 +82,7 @@ public class SilverServiceCar extends Car {
 
 		return overString;
 	}
-
+	
 	// Overriding the getString Method
 	@Override
 	public String toString() {

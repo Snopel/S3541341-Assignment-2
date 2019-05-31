@@ -6,8 +6,10 @@ import utilities.DateUtilities;
  * Booking Class
  * Represents a booking in a ride sharing system.
  * This class can be used by other objects not just cars.
- * Author: Rodney Cocker
- */
+ * Further edited by the student assessed
+ * Author:		Rodney Cocker
+				Edited: Nicholas Balliro - s3541341
+*/
 public class Booking {
 	
 	private String id;

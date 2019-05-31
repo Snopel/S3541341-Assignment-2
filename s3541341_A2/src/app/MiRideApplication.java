@@ -12,7 +12,9 @@ import exception.*;
  * Class:			MiRideApplication
  * Description:		The system manager the manages the 
  *              	collection of data. 
+ * 					Further edited by the student assessed
  * Author:			Rodney Cocker
+					Edited: Nicholas Balliro - s3541341
  */
 public class MiRideApplication {
 	private Car[] cars = new Car[15];
@@ -288,7 +290,7 @@ public class MiRideApplication {
 		lykan.book("Shantel", "Macauley", new DateTime(1), 3);
 		lykan.book("Bianca", "Bisaggeo", new DateTime(2), 7);
 		lykan.book("Simone", "McKay", new DateTime(3), 3);
-		lykan.book("Alannah", "McLennan", new DateTime(4), 7);
+		lykan.book("Alannah", "Eileen", new DateTime(4), 7);
 		lykan.book("Freya", "Cook", new DateTime(5), 7);
 		lykan.book("Cathryn", "Treven", new DateTime(6), 7);
 		lykan.book("Taylah", "Clayton", new DateTime(7), 7);

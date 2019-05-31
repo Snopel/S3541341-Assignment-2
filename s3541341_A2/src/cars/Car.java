@@ -9,7 +9,9 @@ import utilities.MiRidesUtilities;
 /*
  * Class:		Car
  * Description:	The class represents a car in a ride sharing system. 
+ * 				Further edited by the student assessed
  * Author:		Rodney Cocker
+				Edited: Nicholas Balliro - s3541341
  */
 public class Car
 {
@@ -28,7 +30,7 @@ public class Car
 	private double tripFee = 0;
 
 	// Constants
-	private final double STANDARD_BOOKING_FEE = 1.5;
+	private double STANDARD_BOOKING_FEE = 1.5;
 	private final int MAXIUM_PASSENGER_CAPACITY = 10;
 	private final int MINIMUM_PASSENGER_CAPACITY = 1;
 
@@ -80,7 +82,7 @@ public class Car
 		// Booking is permissible
 		if (available && dateAvailable && dateValid && validPassengerNumber)
 		{
-			tripFee = STANDARD_BOOKING_FEE;
+			tripFee = STANDARD_BOOKING_FEE; 
 			Booking booking = new Booking(firstName, lastName, required, numPassengers, this);
 			currentBookings[bookingSpotAvailable] = booking;
 			bookingSpotAvailable++;
@@ -187,6 +189,28 @@ public class Car
 		{
 			sb.append(String.format("%-15s %s\n", "Available:", "NO"));
 		}
+		//Updating with current and past bookings
+		if (getCurrentBookings()[0] != null) {
+			sb.append("CURRENT BOOKINGS \n");
+			for (int i = 0; i < getCurrentBookings().length; i++) {
+				if (getCurrentBookings()[i] == null) {
+					continue;
+				} else {
+					sb.append(getCurrentBookings()[i].getDetails());
+				}
+			}
+		} 
+
+		if (getPastBookings()[0] != null) {
+			sb.append("PAST BOOKINGS \n");
+			for (int i = 0; i < getPastBookings().length; i++) {
+				if (getPastBookings()[i] == null) {
+					continue;
+				} else {
+					sb.append(getPastBookings()[i].getDetails());
+				}
+			}
+		}
 
 		return sb.toString();
 	}
@@ -230,7 +254,7 @@ public class Car
 	{
 		return tripFee;
 	}
-
+	
 	/*
 	 * Checks to see if any past bookings have been recorded
 	 */

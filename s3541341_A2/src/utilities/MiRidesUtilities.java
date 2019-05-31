@@ -1,5 +1,10 @@
 package utilities;
 
+/*
+ * Class:		MiRidesUtilities
+ * Description:	Adds new features for the MiRides Class
+ * Author:		Rodney Cocker
+ */
 public class MiRidesUtilities 
 {
 	private final static int ID_LENGTH = 6;

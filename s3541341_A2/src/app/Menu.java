@@ -5,16 +5,21 @@ import java.util.Scanner;
 import exception.*;
 import utilities.DateTime;
 import utilities.DateUtilities;
+import io.Persistence;
 
 /*
  * Class:		Menu
  * Description:	The class a menu and is used to interact with the user. 
+ * 				Further edited by the student assessed
  * Author:		Rodney Cocker
+				Edited: Nicholas Balliro - s3541341
  */
 public class Menu
 {
 	private Scanner console = new Scanner(System.in);
 	private MiRideApplication application = new MiRideApplication();
+	//Instantiating the persistence class
+	private Persistence io = new Persistence();
 	// Allows me to turn validation on/off for testing business logic in the
 	// classes.
 	private boolean testingWithValidation = true;
@@ -63,6 +68,8 @@ public class Menu
 					break;
 				case "SD":
 					application.seedData();
+					break;
+				case "LD":
 					break;
 				case "EX":
 					System.out.println("Exiting Program ... Goodbye!");

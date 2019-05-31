@@ -1,5 +1,13 @@
 package utilities;
 
+/*
+ * Class:		DateUtilities
+ * Description:	Adds new features for the DateTime Class
+ * 				Edited as necessary by studnet being assessed
+ 
+ * Author:		Rodney Cocker
+ * 				Edited: Nicholas Balliro - s3541341
+ */
 public class DateUtilities {
 
 	public static boolean dateIsNotInPast(DateTime date)
