@@ -12,6 +12,9 @@ import io.Persistence;
  * Class:		Menu
  * Description:	The class a menu and is used to interact with the user. 
  * 				Further edited by the student assessed
+ * 				- Added a 'Load Data' option in menu so the user
+ * 				  can either load previous data or start fresh.
+ *
  * Author:		Rodney Cocker
 				Edited: Nicholas Balliro - s3541341
  */
@@ -71,11 +74,33 @@ public class Menu
 					application.seedData();
 					break;
 				case "LD":
+					/*LOAD DATA
+					 * Added as I personally felt this works a lot better
+					 * if the user didn't want to keep old data.
+					 * Design spec didn't say you couldn't change the menu
+					 * this time ;)
+					 * 
+					 * Using Try-Catch to determine whether the data
+					 * or the backup could not be loaded:
+					 */
 					try {
 						application.loadData();
 					} catch (IOException e1) {
-						System.out.println("Error.");
+						System.out.println("ERROR"
+								+ "\nCould not locate Data file."
+								+ "\nAttempting to load Backup file...\n");
+						try {
+							application.loadBackup();
+						} catch (IOException e2) {
+							System.out.println("ERROR"
+									+ "\nCould not locate Backup file."
+									+ "\nTerminating operation.");
+							break;
+						}
+						System.out.println("Backup successfully loaded!");
+						break;
 					}
+					System.out.println("Data successfully loaded!");
 					break;
 				case "EX":
 					System.out.println("Exiting Program ... Goodbye!");

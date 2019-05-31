@@ -355,8 +355,10 @@ public class MiRideApplication {
 			String order = console.nextLine();
 
 			if (order.equalsIgnoreCase("A")) {
+				//initiate Ascending order
 				ascSortString(filteredCars);
 			} else if (order.equalsIgnoreCase("D")) {
+				//initiate Descending order
 				descSortString(filteredCars);
 			} else {
 				System.out.println("Invalid Selection");
@@ -367,7 +369,6 @@ public class MiRideApplication {
 			sb.append("\n");
 
 			// build the string from the filtered array
-
 			for (int i = 0; i < itemCount; i++) {
 				if (filteredCars[i] != null) {
 					sb.append(filteredCars[i]);
@@ -631,6 +632,7 @@ public class MiRideApplication {
 		try {
 			//Swap whole array into the Cars array
 			cars = readWrite.readCarData("data.txt");
+			itemCount = 0;
 			//Loop to increase Item Count back to its respective value
 			for (int i = 0; i < cars.length - 1; i++) {
 				if (cars[i] != null) {
@@ -638,9 +640,27 @@ public class MiRideApplication {
 				}
 			}
 		} catch (CorruptedFileException e) {
-			System.out.println("Error.");
+			System.out.println("ERROR");
 		}
 	}
+	
+	public void loadBackup() throws IOException {
+		Persistence readWrite = new Persistence();
+		try {
+			//Swap whole array into the Cars array
+			cars = readWrite.readCarData("backup.txt");
+			itemCount = 0;
+			//Loop to increase Item Count back to its respective value
+			for (int i = 0; i < cars.length - 1; i++) {
+				if (cars[i] != null) {
+					itemCount++;
+				}
+			}
+		} catch (CorruptedFileException e) {
+			System.out.println("ERROR");
+		}
+	}
+
 
 	// Method used when exiting in Menu
 	public void exitScheme() throws IOException{

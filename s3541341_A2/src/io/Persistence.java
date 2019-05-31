@@ -78,10 +78,21 @@ public class Persistence {
 		//Available is unnecessary. Using token to let it pass by
 		String available = inReader.nextToken();
 		double bookingFee = Double.parseDouble(inReader.nextToken());
-		String[] refreshments = inReader.nextToken().split("/");
+		/*Refreshments Fill:
+		* Due to the Items being stored into the array
+		* 'fake' has been created to store the 'Item_'
+		* and let the item store into refreshments
+		*/
+		String[] refreshments = new String[3];
+		String fake = "";
+		fake = inReader.nextToken();
+		refreshments[0] = inReader.nextToken();
+		fake = inReader.nextToken();
+		refreshments[1] = inReader.nextToken();
+		fake = inReader.nextToken();
+		refreshments[2] = inReader.nextToken();
 		
 		SilverServiceCar car = new SilverServiceCar(regNo, make, model, driverName, passengerCapacity, bookingFee, refreshments);
-		System.out.println("Silver Car Loaded!");
 		return car;
 	}
 	
@@ -94,7 +105,6 @@ public class Persistence {
 		int passengerCapacity = Integer.parseInt(inReader.nextToken());
 		
 		Car car = new Car(regNo, make, model, driverName, passengerCapacity);
-		System.out.println("Standard Car Loaded!");
 		return car;
 	 }
 

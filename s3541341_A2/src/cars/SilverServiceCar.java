@@ -90,8 +90,7 @@ public class SilverServiceCar extends Car {
 		overString = super.toString();
 		overString += (":" + bookingFee + ":");
 		for (int i = 0; i < refreshments.length; i++) {
-			//Adding "/" delimiter for Persistence
-			overString += ("Item " + (i + 1) + " " + refreshments[i] + "/");
+			overString += ("Item " + (i + 1) + ": " + refreshments[i] + ":");
 		}
 
 		// Add in the current bookings and past bookings
