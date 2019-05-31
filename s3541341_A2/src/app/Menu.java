@@ -1,6 +1,8 @@
 package app;
 
 import java.util.Scanner;
+
+import exception.*;
 import utilities.DateTime;
 import utilities.DateUtilities;
 
@@ -77,13 +79,14 @@ public class Menu
 	/*
 	 * Creates cars for use in the system available or booking.
 	 */
-	private void createCar()
+	private void createCar() 
 	{
 		String id = "", make, model, driverName;
 		int numPassengers = 0;
 		String service = "";
-		double bookingFee;
+		double bookingFee = 0.0;
 		String refreshmentsString;
+		String[] refreshments = new String[3];
 
 		System.out.print("Enter registration number: ");
 		id = promptUserForRegNo();
@@ -98,9 +101,13 @@ public class Menu
 
 			System.out.print("Enter Driver Name: ");
 			driverName = console.nextLine();
-
+			try { 
 			System.out.print("Enter number of passengers: ");
 			numPassengers = Integer.parseInt(console.nextLine());
+			} catch (NumberFormatException e) {
+				System.out.println("Error: Only a number can be entered.");
+				return;
+			}
 			
 			//UPDATE: Adding the SD / SS choice function
 			System.out.print("Enter Service Type (SD/SS): ");
@@ -119,7 +126,12 @@ public class Menu
 				}
 			} else if (service.equals("SS")) {
 				System.out.print("Enter Standard Fee: ");
+				try {
 				bookingFee = Double.parseDouble(console.nextLine());
+				} catch (NumberFormatException e) {
+					System.out.println("Error: Invalid input");
+					
+				}
 				
 				
 				/*ALGORITHM
@@ -140,20 +152,23 @@ public class Menu
 				System.out.print("Enter List of Refreshments\n"
 						+ "(Separate Refreshments by comma ','): ");
 				refreshmentsString = console.nextLine();
-				String[] refreshments = refreshmentsString.split(",");
-				if(refreshments.length == 1) {
+				refreshments = refreshmentsString.split(",");
+				if (refreshments.length == 1) {
 					System.out.println("Error: Invalid Input");
 					return;
 				}
-				//Continue with booking the car
+				// Continue with booking the car
 				boolean result = application.checkIfCarExists(id);
-
-				if (!result)
-				{
-					String carRegistrationNumber = application.createSilverCar(id, make, model, driverName, numPassengers, bookingFee, refreshments);
+				String carRegistrationNumber = "";
+				if (!result) {
+					try {
+					carRegistrationNumber = application.createSilverCar(id, make, model, driverName,
+							numPassengers, bookingFee, refreshments);
+					} catch (InvalidRefreshmentException e) {
+						System.out.println(e.getMessage());
+					}
 					System.out.println(carRegistrationNumber);
-				} else
-				{
+				} else {
 					System.out.println("Error - Already exists in the system");
 				}
 			} else {
@@ -199,7 +214,13 @@ public class Menu
 			System.out.println("Please enter your last name:");
 			String lastName = console.nextLine();
 			System.out.println("Please enter the number of passengers:");
-			int numPassengers = Integer.parseInt(console.nextLine());
+			int numPassengers = 0;
+			try {
+			numPassengers = Integer.parseInt(console.nextLine());
+			} catch (NumberFormatException e) {
+				System.out.println("Error: Invalid input");
+				return false;
+			}
 			String result = application.book(firstName, lastName, dateRequired, numPassengers, regNo);
 
 			System.out.println(result);

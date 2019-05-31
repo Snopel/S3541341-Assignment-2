@@ -1,5 +1,4 @@
 package app;
-
 import java.util.*;
 
 import cars.Car;
@@ -7,7 +6,7 @@ import cars.SilverServiceCar;
 import utilities.DateTime;
 import utilities.DateUtilities;
 import utilities.MiRidesUtilities;
-
+import exception.*;
 /*
  * Class:			MiRideApplication
  * Description:		The system manager the manages the 
@@ -25,11 +24,12 @@ public class MiRideApplication {
 
 	// UPDATE: Creating two creation methods; one for Standard, one for Silver
 	// Service
-	public String createStandardCar(String id, String make, String model, String driverName, int numPassengers) {
+	public String createStandardCar(String id, String make, String model, String driverName, int numPassengers){
 		String validId = isValidId(id);
 		if (isValidId(id).contains("Error:")) {
 			return validId;
 		}
+
 		if (!checkIfCarExists(id)) {
 			cars[itemCount] = new Car(id, make, model, driverName, numPassengers);
 			itemCount++;
@@ -40,22 +40,33 @@ public class MiRideApplication {
 	}
 
 	public String createSilverCar(String id, String make, String model, String driverName, int numPassengers,
-			double bookingFee, String[] refreshments) {
+			double bookingFee, String[] refreshments) throws InvalidRefreshmentException{
 		String validId = isValidId(id);
 		if (isValidId(id).contains("Error:")) {
 			return validId;
 		}
+		
+		//Check for duplicate values in the array
+		for (int j=0; j < refreshments.length; j++) {
+			  for (int k= j + 1; k < refreshments.length ; k++) {
+			    if (k != j && refreshments[k].equals(refreshments[j])) {
+					throw new InvalidRefreshmentException("Error: Duplicate Refreshments");
+				}
+			}
+		}
+		
 		if (!checkIfCarExists(id)) {
 			cars[itemCount] = new SilverServiceCar(id, make, model, driverName, numPassengers, bookingFee,
 					refreshments);
 			itemCount++;
+			
 			return "New Silver Service Car added successfully for registion number: "
 					+ cars[itemCount - 1].getRegistrationNumber();
 		}
 		return "Error: Already exists in the system.";
 	}
 
-	public String[] book(DateTime dateRequired) {
+	public String[] book(DateTime dateRequired){
 		int numberOfAvailableCars = 0;
 		// finds number of available cars to determine the size of the array required.
 		for (int i = 0; i < cars.length; i++) {
@@ -81,6 +92,7 @@ public class MiRideApplication {
 				}
 			}
 		}
+		
 		return availableCars;
 	}
 
@@ -294,13 +306,16 @@ public class MiRideApplication {
 				}
 			}
 			
-			System.out.println("Enter Sort Order (A/D): ");
+			System.out.print("Enter Sort Order (A/D): ");
 			String order = console.nextLine();
 			
 			if (order.equalsIgnoreCase("A")) {
 				ascSortString(filteredCars);
 			} else if (order.equalsIgnoreCase("D")) {
 				descSortString(filteredCars);
+			} else {
+				System.out.println("Invalid Seletion");
+				return "";
 			}
 			
 			
@@ -473,17 +488,13 @@ public class MiRideApplication {
 					if (filteredCars[a].getCurrentBookings() != null) {
 						for (int b = 0; b < filteredCars[a].getCurrentBookings().length; b++) {
 							if (filteredCars[a].getCurrentBookings()[b] != null) {
-								if (filteredCars[a].getCurrentBookings()[b].getDateBooked()
-										.equals(dateRequired.getEightDigitDate())) {
+								if (filteredCars[a].getCurrentBookings()[b].getDateBooked().equals(dateRequired.getEightDigitDate())) {
 									sb.append(filteredCars[a].getDetails());
-								} else if (a == filteredCars.length) {
-									sb.append("Error: No cars found in the system.");
-									break;
-								}
+								} 
 							}
 						}
 					}
-				}
+				} 
 			}
 		}
 		return sb.toString();
