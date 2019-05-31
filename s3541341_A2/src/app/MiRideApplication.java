@@ -1,4 +1,5 @@
 package app;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import cars.Car;
@@ -55,6 +56,11 @@ public class MiRideApplication {
 			}
 		}
 		
+		//Check if refreshments are less than 3
+		if (refreshments.length < 3) {
+			throw new InvalidRefreshmentException("Error: Must be at least 3 Refreshments");
+		}
+				
 		if (!checkIfCarExists(id)) {
 			cars[itemCount] = new SilverServiceCar(id, make, model, driverName, numPassengers, bookingFee,
 					refreshments);
@@ -66,7 +72,7 @@ public class MiRideApplication {
 		return "Error: Already exists in the system.";
 	}
 
-	public String[] book(DateTime dateRequired){
+	public String[] book(DateTime dateRequired) {
 		int numberOfAvailableCars = 0;
 		// finds number of available cars to determine the size of the array required.
 		for (int i = 0; i < cars.length; i++) {
@@ -80,6 +86,7 @@ public class MiRideApplication {
 			String[] result = new String[0];
 			return result;
 		}
+		
 		availableCars = new String[numberOfAvailableCars];
 		int availableCarsIndex = 0;
 		// Populate available cars with registration numbers
@@ -97,9 +104,13 @@ public class MiRideApplication {
 	}
 
 	public String book(String firstName, String lastName, DateTime required, int numPassengers,
-			String registrationNumber) {
+			String registrationNumber) throws InvalidIDException{
 		Car car = getCarById(registrationNumber);
 		if (car != null) {
+			//ID Exception to ensure names are at least 3 characters wrong
+			if(firstName.length() < 3 || lastName.length() < 3) {
+				throw new InvalidIDException("Error: Names must be more than 3 characters");
+			}
 			car.book(firstName, lastName, required, numPassengers);
 			String message = "Thank you for your booking. \n" + car.getDriverName() + " will pick you up on "
 					+ required.getFormattedDate() + ". \n" + "Your booking reference is: "
@@ -292,12 +303,12 @@ public class MiRideApplication {
 		Scanner console = new Scanner(System.in);
 		System.out.print("Enter Type (SD/SS): ");
 		String type = console.nextLine();
-		
+
 		if (type.equalsIgnoreCase("SD")) {
 			if (itemCount == 0) {
 				return "No cars have been added to the system.";
 			}
-			
+
 			for (int g = 0; g < cars.length; g++) {
 				if (cars[g] instanceof Car && !(cars[g] instanceof SilverServiceCar)) {
 					if (cars[g] != null) {
@@ -305,10 +316,10 @@ public class MiRideApplication {
 					}
 				}
 			}
-			
+
 			System.out.print("Enter Sort Order (A/D): ");
 			String order = console.nextLine();
-			
+
 			if (order.equalsIgnoreCase("A")) {
 				ascSortString(filteredCars);
 			} else if (order.equalsIgnoreCase("D")) {
@@ -317,8 +328,7 @@ public class MiRideApplication {
 				System.out.println("Invalid Seletion");
 				return "";
 			}
-			
-			
+
 			sb.append("Summary of all cars: ");
 			sb.append("\n");
 
@@ -329,13 +339,11 @@ public class MiRideApplication {
 					sb.append(filteredCars[i]);
 				}
 			}
-		}
-		
-		if (type.equalsIgnoreCase("SS")) {
+		} else if (type.equalsIgnoreCase("SS")) {
 			if (itemCount == 0) {
 				return "No cars have been added to the system.";
 			}
-			
+
 			for (int g = 0; g < cars.length; g++) {
 				if (cars[g] instanceof SilverServiceCar) {
 					if (cars[g] != null) {
@@ -343,17 +351,19 @@ public class MiRideApplication {
 					}
 				}
 			}
-			
-			System.out.println("Enter Sort Order (A/D): ");
+
+			System.out.print("Enter Sort Order (A/D): ");
 			String order = console.nextLine();
-			
+
 			if (order.equalsIgnoreCase("A")) {
 				ascSortString(filteredCars);
 			} else if (order.equalsIgnoreCase("D")) {
 				descSortString(filteredCars);
+			} else {
+				System.out.println("Invalid Selection");
+				return "";
 			}
-			
-			
+
 			sb.append("Summary of all cars: ");
 			sb.append("\n");
 
@@ -364,6 +374,9 @@ public class MiRideApplication {
 					sb.append(filteredCars[i]);
 				}
 			}
+		} else {
+			System.out.println("Invalid Selection");
+			return "";
 		}
 		return sb.toString();
 	}
@@ -428,12 +441,23 @@ public class MiRideApplication {
 			}
 
 			//Prompt user for date entry
-			System.out.println("Date: ");
-			String dateEntered = console.nextLine();
-			int day = Integer.parseInt(dateEntered.substring(0, 2));
-			int month = Integer.parseInt(dateEntered.substring(3, 5));
-			int year = Integer.parseInt(dateEntered.substring(6));
+			System.out.print("Date: ");
+			String dateEntered = "";
+			int day = 0;
+			int month = 0;
+			int year = 0;
+			//Fixing exception for wrong date
+			try {
+			dateEntered = console.nextLine();
+			day = Integer.parseInt(dateEntered.substring(0, 2));
+			month = Integer.parseInt(dateEntered.substring(3, 5));
+			year = Integer.parseInt(dateEntered.substring(6));
+			} catch (StringIndexOutOfBoundsException e) {
+				System.out.println("Invalid Entry");
+				return "";
+			}
 			DateTime dateRequired = new DateTime(day, month, year);
+			
 			
 			if(!DateUtilities.dateIsNotInPast(dateRequired) || !DateUtilities.dateIsNotMoreThanXDays(dateRequired, 7))
 			{
@@ -456,8 +480,7 @@ public class MiRideApplication {
 					break;
 				}
 			}
-		}
-		if (type.equalsIgnoreCase("SS")) {
+		} else if (type.equalsIgnoreCase("SS")) {
 			if (itemCount == 0) {
 				return "No cars have been added to the system.";
 			}
@@ -472,10 +495,19 @@ public class MiRideApplication {
 
 			//Prompt user for date entry
 			System.out.println("Date: ");
-			String dateEntered = console.nextLine();
-			int day = Integer.parseInt(dateEntered.substring(0, 2));
-			int month = Integer.parseInt(dateEntered.substring(3, 5));
-			int year = Integer.parseInt(dateEntered.substring(6));
+			String dateEntered = "";
+			int day = 0;
+			int month = 0;
+			int year = 0;
+			try {
+			dateEntered = console.nextLine();
+			day = Integer.parseInt(dateEntered.substring(0, 2));
+			month = Integer.parseInt(dateEntered.substring(3, 5));
+			year = Integer.parseInt(dateEntered.substring(6));
+			} catch (StringIndexOutOfBoundsException e) {
+				System.out.println("Invalid Entry");
+				return "";
+			}
 			DateTime dateRequired = new DateTime(day, month, year);
 			
 			if(!DateUtilities.dateIsNotInPast(dateRequired) || !DateUtilities.dateIsNotMoreThanXDays(dateRequired, 7))
@@ -496,6 +528,9 @@ public class MiRideApplication {
 					}
 				} 
 			}
+		} else {
+			System.out.println("Invalid Entry");
+			return "";
 		}
 		return sb.toString();
 	}

@@ -181,13 +181,23 @@ public class Menu
 	 * Book a car by finding available cars for a specified date.
 	 */
 	private boolean book()
-	{
-		System.out.println("Enter date car required: ");
-		System.out.println("format DD/MM/YYYY)");
-		String dateEntered = console.nextLine();
-		int day = Integer.parseInt(dateEntered.substring(0, 2));
-		int month = Integer.parseInt(dateEntered.substring(3, 5));
-		int year = Integer.parseInt(dateEntered.substring(6));
+	{	
+		int day = 0;
+		int month = 0;
+		int year = 0;
+		System.out.println("Enter date car required.");
+		System.out.print("(Format DD/MM/YYYY): ");
+		String dateEntered = "";
+		dateEntered = console.nextLine();
+		
+		try {
+		day = Integer.parseInt(dateEntered.substring(0, 2));
+		month = Integer.parseInt(dateEntered.substring(3, 5));
+		year = Integer.parseInt(dateEntered.substring(6));
+		} catch (StringIndexOutOfBoundsException e) {
+			System.out.println("Error: Invalid Entry");
+			return false;
+		}
 		DateTime dateRequired = new DateTime(day, month, year);
 		
 		if(!DateUtilities.dateIsNotInPast(dateRequired) || !DateUtilities.dateIsNotMoreThanXDays(dateRequired, 7))
@@ -195,7 +205,6 @@ public class Menu
 			System.out.println("Date is invalid, must be within the coming week.");
 			return false;
 		}
-		
 		
 		String[] availableCars = application.book(dateRequired);
 		for (int i = 0; i < availableCars.length; i++)
@@ -209,10 +218,13 @@ public class Menu
 			
 			String regNo = availableCars[itemSelected - 1];
 			regNo = regNo.substring(regNo.length() - 6);
+			
+			String firstName = "";
+			String lastName = "";
 			System.out.println("Please enter your first name:");
-			String firstName = console.nextLine();
+			firstName = console.nextLine();
 			System.out.println("Please enter your last name:");
-			String lastName = console.nextLine();
+			lastName = console.nextLine();
 			System.out.println("Please enter the number of passengers:");
 			int numPassengers = 0;
 			try {
@@ -221,7 +233,12 @@ public class Menu
 				System.out.println("Error: Invalid input");
 				return false;
 			}
-			String result = application.book(firstName, lastName, dateRequired, numPassengers, regNo);
+			String result = "";
+			try {
+				result = application.book(firstName, lastName, dateRequired, numPassengers, regNo);
+			} catch (InvalidIDException e) {
+				System.out.println(e.getMessage());
+			}
 
 			System.out.println(result);
 		} else
