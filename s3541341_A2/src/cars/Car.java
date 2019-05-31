@@ -27,7 +27,8 @@ public class Car
 	private Booking[] pastBookings;
 	private boolean available;
 	private int bookingSpotAvailable = 0;
-	private double tripFee = 0;
+	// Needs to change in Child Class
+	protected double tripFee = 0;
 
 	// Constants
 	private double STANDARD_BOOKING_FEE = 1.5;

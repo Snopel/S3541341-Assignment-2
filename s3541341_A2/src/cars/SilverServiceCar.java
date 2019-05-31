@@ -14,7 +14,6 @@ public class SilverServiceCar extends Car {
 	// Defining new variables
 	private double bookingFee;
 	private String[] refreshments;
-	private double tripFee = bookingFee * 0.4;
 
 	// Adding constructor for this new class
 	public SilverServiceCar(String regNo, String make, String model, String driverName, int passengerCapacity,
@@ -51,7 +50,7 @@ public class SilverServiceCar extends Car {
 		// Add in the booking fee change and the refreshments
 		String overString = "";
 		overString = super.getDetails();
-		overString += ("\nBooking Fee: " + bookingFee + "\nRefreshments Available:\n");
+		overString += ("\nBooking Fee: $" + bookingFee + "\nRefreshments Available:\n");
 		for (int i = 0; i < refreshments.length; i++) {
 			overString += ("\nItem " + (i + 1) + ": " + refreshments[i]);
 		}
@@ -123,5 +122,10 @@ public class SilverServiceCar extends Car {
 
 		return overString;
 	}
-
+	
+	// Overriding the getTripFee method
+	@Override
+	public double getTripFee() {
+		return bookingFee;
+	}
 }

@@ -419,8 +419,11 @@ public class MiRideApplication {
 		}
 		return car;
 	}
-	
+	/*Search Available
+	 * Allows user to search for a car by date
+	*/
 	public String searchAvailable() {
+		boolean located = false;
 		StringBuilder sb = new StringBuilder();
 		Car[] filteredCars = new Car[15];
 		Scanner console = new Scanner(System.in);
@@ -432,6 +435,7 @@ public class MiRideApplication {
 				return "No cars have been added to the system.";
 			}
 			
+			//Standard Car
 			for (int g = 0; g < cars.length; g++) {
 				if (cars[g] instanceof Car && !(cars[g] instanceof SilverServiceCar)) {
 					if (cars[g] != null) {
@@ -463,7 +467,8 @@ public class MiRideApplication {
 			{
 				return "Date is invalid, must be within the coming week.";
 			}
-			
+			//Nested Loops and Statements to match the bookings of entered and existing
+			located = false;
 			for (int a = 0; a < filteredCars.length; a++) {
 				if (filteredCars[a] != null) {
 					if (filteredCars[a].getCurrentBookings() != null) {
@@ -471,20 +476,21 @@ public class MiRideApplication {
 							if (filteredCars[a].getCurrentBookings()[b] != null) {
 								if (filteredCars[a].getCurrentBookings()[b].getDateBooked().equals(dateRequired.getEightDigitDate())) {
 									sb.append(filteredCars[a].getDetails());
+									located = true;
 								}
 							}
 						}
 					}
-				} else if (a == filteredCars.length) {
-					System.out.println("Error: No cars found in the system.");
-					break;
 				}
+			} if (located == true) {
+				return sb.toString();
 			}
 		} else if (type.equalsIgnoreCase("SS")) {
 			if (itemCount == 0) {
 				return "No cars have been added to the system.";
 			}
 			
+			//Silver car
 			for (int g = 0; g < cars.length; g++) {
 				if (cars[g] instanceof SilverServiceCar) {
 					if (cars[g] != null) {
@@ -494,7 +500,7 @@ public class MiRideApplication {
 			}
 
 			//Prompt user for date entry
-			System.out.println("Date: ");
+			System.out.print("Date: ");
 			String dateEntered = "";
 			int day = 0;
 			int month = 0;
@@ -514,7 +520,6 @@ public class MiRideApplication {
 			{
 				return "Date is invalid, must be within the coming week.";
 			}
-			
 			for (int a = 0; a < filteredCars.length; a++) {
 				if (filteredCars[a] != null) {
 					if (filteredCars[a].getCurrentBookings() != null) {
@@ -522,17 +527,18 @@ public class MiRideApplication {
 							if (filteredCars[a].getCurrentBookings()[b] != null) {
 								if (filteredCars[a].getCurrentBookings()[b].getDateBooked().equals(dateRequired.getEightDigitDate())) {
 									sb.append(filteredCars[a].getDetails());
+									located = true;
 								} 
 							}
 						}
 					}
 				} 
+			} 
+			if (located == true) {
+				return sb.toString();
 			}
-		} else {
-			System.out.println("Invalid Entry");
-			return "";
-		}
-		return sb.toString();
+		} 		
+		return "Error: Car could not be located.";
 	}
 	//SORTING ALGORITHMS
 	private void ascSortString(String[] sortArr) {

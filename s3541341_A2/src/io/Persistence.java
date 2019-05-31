@@ -1,6 +1,13 @@
 
 package io;
 
+/*
+ * Persistence Class
+ * Contains the functionality for IO handling.
+ * Allows for saving files and loading into system.
+ * 
+ * Author: Nicholas Balliro - s3541341
+*/
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -20,9 +27,11 @@ public class Persistence {
 	 */
 
 	public void saveCars(Car[] cars) throws IOException {
+		//Initiate the PrintWriters
 		PrintWriter dataPrint = new PrintWriter(new BufferedWriter(new FileWriter("data.txt")));
 		PrintWriter backupPrint = new PrintWriter(new BufferedWriter(new FileWriter("backup.txt")));
-
+		
+		//Print the cars by their toString methods
 		for (Car car : cars) {
 			if (car != null) {
 				String carString = car.toString();

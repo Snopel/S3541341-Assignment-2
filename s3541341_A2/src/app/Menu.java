@@ -259,7 +259,7 @@ public class Menu
 		}
 		if (availableCars.length != 0)
 		{
-			System.out.println("Please enter a number from the list:");
+			System.out.print("Please enter a number from the list: ");
 			int itemSelected = Integer.parseInt(console.nextLine());
 			
 			String regNo = availableCars[itemSelected - 1];
@@ -267,11 +267,11 @@ public class Menu
 			
 			String firstName = "";
 			String lastName = "";
-			System.out.println("Please enter your first name:");
+			System.out.print("Please enter your first name: ");
 			firstName = console.nextLine();
-			System.out.println("Please enter your last name:");
+			System.out.print("Please enter your last name: ");
 			lastName = console.nextLine();
-			System.out.println("Please enter the number of passengers:");
+			System.out.print("Please enter the number of passengers: ");
 			int numPassengers = 0;
 			try {
 			numPassengers = Integer.parseInt(console.nextLine());
