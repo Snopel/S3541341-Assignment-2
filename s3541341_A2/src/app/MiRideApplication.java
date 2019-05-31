@@ -630,15 +630,24 @@ public class MiRideApplication {
 		}
 	}
 	
-	public void loadData() throws IOException{
+	//Loads the array from the Persistence file into the current Cars array
+	public void loadData() throws IOException {
 		Persistence readWrite = new Persistence();
 		try {
-			readWrite.readCarData("data.txt");
+			//Swap whole array into the Cars array
+			cars = readWrite.readCarData("data.txt");
+			//Loop to increase Item Count back to its respective value
+			for (int i = 0; i < cars.length - 1; i++) {
+				if (cars[i] != null) {
+					itemCount++;
+				}
+			}
 		} catch (CorruptedFileException e) {
 			System.out.println("Error.");
 		}
 	}
-	//Method used when exiting in Menu
+
+	// Method used when exiting in Menu
 	public void exitScheme() throws IOException{
 		//Create a file and save all cars to string
 		Persistence readWrite = new Persistence();
