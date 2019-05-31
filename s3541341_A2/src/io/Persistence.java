@@ -20,15 +20,18 @@ public class Persistence {
 	 */
 
 	public void saveCars(Car[] cars) throws IOException {
-		PrintWriter prWr = new PrintWriter(new BufferedWriter(new FileWriter("data.txt")));
+		PrintWriter dataPrint = new PrintWriter(new BufferedWriter(new FileWriter("data.txt")));
+		PrintWriter backupPrint = new PrintWriter(new BufferedWriter(new FileWriter("backup.txt")));
 
 		for (Car car : cars) {
 			if (car != null) {
 				String carString = car.toString();
-				prWr.println(carString);
+				dataPrint.println(carString);
+				backupPrint.println(carString);
 			}
 		}
-		prWr.close();
+		dataPrint.close();
+		backupPrint.close();
 	}
 
 	public Car[] readCarData(String fileName) throws IOException, CorruptedFileException {
@@ -63,12 +66,6 @@ public class Persistence {
 		// Close to prevent resource leak
 		buff.close();
 		return records;
-	}
-
-	private void checkFileIntegrity(StringTokenizer inReader) throws IOException, CorruptedFileException {
-		if (inReader.countTokens() != 2) {
-			throw new CorruptedFileException("FATAL ERROR: File has been corrupted.");
-		}
 	}
 	
 	//Method to recover the saved silver service car into the records array

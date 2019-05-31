@@ -23,12 +23,7 @@ public class MiRideApplication {
 	private int itemCount = 0;
 	private String[] availableCars;
 
-	public MiRideApplication() {
-		// seedData();
-	}
-
-	// UPDATE: Creating two creation methods; one for Standard, one for Silver
-	// Service
+	// UPDATE: Creating two creation methods; one for Standard, one for Silver Service
 	public String createStandardCar(String id, String make, String model, String driverName, int numPassengers){
 		String validId = isValidId(id);
 		if (isValidId(id).contains("Error:")) {
