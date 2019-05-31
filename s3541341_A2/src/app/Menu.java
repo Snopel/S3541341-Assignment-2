@@ -1,5 +1,6 @@
 package app;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import exception.*;
@@ -18,8 +19,8 @@ public class Menu
 {
 	private Scanner console = new Scanner(System.in);
 	private MiRideApplication application = new MiRideApplication();
+	Persistence readWrite = new Persistence();
 	//Instantiating the persistence class
-	private Persistence io = new Persistence();
 	// Allows me to turn validation on/off for testing business logic in the
 	// classes.
 	private boolean testingWithValidation = true;
@@ -70,9 +71,20 @@ public class Menu
 					application.seedData();
 					break;
 				case "LD":
+					try {
+						application.loadData();
+					} catch (IOException e1) {
+						System.out.println("Error.");
+					}
 					break;
 				case "EX":
 					System.out.println("Exiting Program ... Goodbye!");
+					//Handling IO Exception
+					try {
+					application.exitScheme();
+					} catch (IOException e) {
+						System.out.println("error");
+					}
 					break;
 				default:
 					System.out.println("Error, invalid option selected!");
@@ -204,6 +216,8 @@ public class Menu
 		} catch (StringIndexOutOfBoundsException e) {
 			System.out.println("Error: Invalid Entry");
 			return false;
+		} catch (NumberFormatException e) {
+			System.out.println("Error: invalid Entry");
 		}
 		DateTime dateRequired = new DateTime(day, month, year);
 		
@@ -361,6 +375,7 @@ public class Menu
 		System.out.printf("%-30s %s\n", "Search Specific Car", "SS");
 		System.out.printf("%-30s %s\n", "Search Available Cars", "SA");
 		System.out.printf("%-30s %s\n", "Seed Data", "SD");
+		System.out.printf("%-30s %s\n", "Load Data", "LD");
 		System.out.printf("%-30s %s\n", "Exit Program", "EX");
 		System.out.println("\nEnter your selection: ");
 		System.out.println("(Hit enter to cancel any operation)");

@@ -1,4 +1,5 @@
 package app;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -8,6 +9,7 @@ import utilities.DateTime;
 import utilities.DateUtilities;
 import utilities.MiRidesUtilities;
 import exception.*;
+import io.Persistence;
 /*
  * Class:			MiRideApplication
  * Description:		The system manager the manages the 
@@ -626,5 +628,20 @@ public class MiRideApplication {
 				}
 			}
 		}
+	}
+	
+	public void loadData() throws IOException{
+		Persistence readWrite = new Persistence();
+		try {
+			readWrite.readCarData("data.txt");
+		} catch (CorruptedFileException e) {
+			System.out.println("Error.");
+		}
+	}
+	//Method used when exiting in Menu
+	public void exitScheme() throws IOException{
+		//Create a file and save all cars to string
+		Persistence readWrite = new Persistence();
+		readWrite.saveCars(cars);
 	}
 }

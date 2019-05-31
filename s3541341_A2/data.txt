@@ -1,0 +1,12 @@
+SIM194:Honda:Accord Euro:Henry Cavill:5:YES
+LEX666:Lexus:M1:Angela Landsbury:3:YES
+BMW256:Mini:Minor:Barbara Streisand:4:YES
+AUD765:Mazda:RX7:Matt Bomer:6:YES
+TOY765:Toyota:Corola:Tina Turner:7:NO
+ROV465:Honda:Rover:Jonathon Ryss Meyers:7:YES
+NEG289:Ferrari:F8 Tributo:Giuseppe Balliro:5:YES:7.5:Item 1 Bubble Tea/Item 2 Irish Latte/Item 3 Sconnes/|:
+KAM666:Lexus:LC 500:Keith Muss:5:YES:5.0:Item 1 Monster/Item 2 Red Bull/Item 3 V/|:
+BLZ420:Bugatti:Type 57SC:Ricki Boyd:5:YES:50.25:Item 1 Margharita/Item 2 Pinot Noir/Item 3 Scotch/|BLZ420SHAKUF01062019:1.5:01062019:Shania Kufner:1:0.0:0.0:BLZ420:
+STI626:Audi:R8:Dannii Fourie:2:YES:10.5:Item 1 Gatorade/Item 2 V/Item 3 Voss Water/|STI626ROBFOU01062019:1.5:01062019:Robyn Fourie:1:0.0:0.0:STI626:
+SNO450:Porsche:911 GT2-RS:Nicholas Balliro:5:YES:25.0:Item 1 Souffle/Item 2 Pudding/Item 3 Trifle/|SNO450JESWYN01062019:1.5:01062019:Jessica Wynn:3:0.0:0.0:SNO450SNO450DANFOU03062019:1.5:03062019:Dannii Fourie:3:0.0:0.0:SNO450:
+CAR006:Lykan:Hypersport:Jarrod Carmichael:5:YES:17.5:Item 1 Carbonara/Item 2 Ravioli/Item 3 Spaghetti/|CAR006SHAMAC01062019:1.5:01062019:Shantel Macauley:3:0.0:0.0:CAR006CAR006SIMMCK03062019:1.5:03062019:Simone McKay:3:0.0:0.0:CAR006:

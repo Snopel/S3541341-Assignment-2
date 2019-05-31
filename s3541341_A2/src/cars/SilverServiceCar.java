@@ -53,7 +53,7 @@ public class SilverServiceCar extends Car {
 		overString = super.getDetails();
 		overString += ("\nBooking Fee: " + bookingFee + "\nRefreshments Available:\n");
 		for (int i = 0; i < refreshments.length; i++) {
-			overString += ("\nItem " + i + ": " + refreshments[i]);
+			overString += ("\nItem " + (i + 1) + ": " + refreshments[i]);
 		}
 		overString += "\n\n";
 
@@ -90,16 +90,18 @@ public class SilverServiceCar extends Car {
 		overString = super.toString();
 		overString += (":" + bookingFee + ":");
 		for (int i = 0; i < refreshments.length; i++) {
-			overString += ("Item " + i + " " + refreshments[i]);
+			//Adding "/" delimiter for Persistence
+			overString += ("Item " + (i + 1) + " " + refreshments[i] + "/");
 		}
 
 		// Add in the current bookings and past bookings
 		if (getCurrentBookings() != null) {
-			overString += ":";
+			//Appending with '|' so the Persistence operation doesn't include bookings
+			overString += "|";
 			for (int i = 0; i < getCurrentBookings().length; i++) {
 				if (getCurrentBookings()[i] == null) {
 					continue;
-				} else {
+				} else{
 					overString += getCurrentBookings()[i].toString();
 				}
 			}
